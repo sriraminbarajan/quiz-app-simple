@@ -1,0 +1,74 @@
+<html>
+{% extends "base.html" %}
+
+{% block title%}
+  Home
+{% endblock %}
+{% block content %}
+<head>
+  
+  <style>
+    .button {
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    
+    .button1 {
+      background-color: white; 
+      color: black; 
+      border: 2px solid #4CAF50;
+    }
+    
+    .button1:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .button2 {
+      background-color: white; 
+      color: black; 
+      border: 2px solid #008CBA;
+    }
+    
+    .button2:hover {
+      background-color: #008CBA;
+      color: white;
+    }
+    
+    </style>
+  
+
+</head>>
+
+<body>
+
+  <h1 class="center">Welcome to Quiz 1.0</h1>
+  <h2>Select the catagory to begin with the quiz in that catagory</h2>
+  {% for choice in choices %}
+  <div class="row">
+    <div class="col-md-4">
+      <a href="/quiz/{{ choice.0 }}"><h3>{{ choice.1 }}</h3></a>
+     
+    </div>
+
+  </div>
+  {% endfor %}
+  
+ 
+
+<button class="button button2">Blue</button>
+  <a href="register.html"><button class="button button1">Go To Login</button></a>
+
+{% endblock %}
+
+</body>>
+
+</html>>

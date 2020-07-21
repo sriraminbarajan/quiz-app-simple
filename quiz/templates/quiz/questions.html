@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title%}
+  QUIZ
+{% endblock %}
+{% block content%}
+<form action="./quiz/questions" method="post">
+  {% for que in ques %}
+
+ <div class="row">
+    <div class="col-md-10">
+
+      <!--displays the question and it's number -->
+
+      <h3>{{ forloop.counter }}. {{ que.question }}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      
+      <h4>
+
+        <INPUT id="my{{forloop.counter}}" TYPE="text" NAME="{{ que.id }}" value= "{{ que.answer }}" style="display: none">
+          
+      <input id="my{{forloop.counter}}1" type="radio" name="qn{{ que.id }}" value="{{ que.optiona }}">
+      {{ que.optiona }}
+    </h4>
+    </div>
+    <div class="col-md-3">
+      <h4>
+      <input id="my{{forloop.counter}}2" type="radio" name="qn{{ que.id }}" value="{{ que.optionb }}">
+      {{ que.optionb }}
+    </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      <h4>
+      <input id="my{{forloop.counter}}3" type="radio" name="qn{{ que.id }}" value="{{ que.optionc }}">
+      {{ que.optionc }}
+    </h4>
+    </div>
+    <div class="col-md-3">
+      <h4>
+      <input id="my{{forloop.counter}}4" class="form_control" type="radio" name="qn{{ que.id }}" value="{{ que.optiond }}">
+      {{ que.optiond }}
+    </h4>
+    </div>
+  </div>
+
+  <button type="button" id="sub{{forloop.counter}}" class="btn btn-block btn-success btn-md" onclick=MyAnswer({{forloop.counter}},qn{{que.id}}) >Check Answer</button>
+
+  <script>
+var score=0;
+var total=0;
+var checker=0;
+
+
+  // checking correct answer eachtime when the user clicks on it 
+  // tells whether the answer is correct or not
+  // if in correct , tells the correct answer
+
+  function MyAnswer(que_no,f){
+      
+      if(f.value===""){
+        alert("Please Select An Option");
+        
+        return;
+      }
+      var y=f.value;
+
+      x=document.getElementById("my"+que_no).value;
+      var g=document.getElementById('sub'+que_no);
+
+      if(x===y){
+        score=score+1;
+        checker=checker+1
+        alert("Correct Answer! :)");
+        
+        total={{forloop.counter}}
+        
+        g.style.display='none'
+        
+        
+        
+        return;
+      }
+      else{
+        checker=checker+1
+        alert("Incorrect answer :(  Correct answer is :  "+x);
+        total={{forloop.counter}}
+        g.style.display='none'
+        
+        
+        return;
+      }
+}
+</script>
+
+  
+  {% endfor %}
+  {% csrf_token %}
+
+  
+
+  
+  <br>
+    <div class="row">
+      <div class="col-md-1">
+       </div>
+
+       <script>
+            var sec = 0;
+           function pad ( val ) { return val > 9 ? val : "0" + val; }
+           setInterval( function(){
+           document.getElementById("seconds").innerHTML=pad(++sec%60);
+           document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+           }, 1000);
+       </script>
+        <span id="minutes"></span>:<span id="seconds"></span>
+
+          <div class="col-xs-2">
+
+
+          <script>
+
+               
+              // displays the outcome of the result
+              // displays the efficieny and result : pass/fail
+              // displays how much time it took for the user to take up the test
+
+              function mySubmit() {
+                if (checker === total){
+                var x = document.getElementById("my");
+                var sec1= Math.floor(sec / 60);
+                
+                var sec2=sec%60
+                efficiency=(score/total)*100;
+                if (efficiency >= 50){
+                  outcome='Pass';
+                  alert("time taken to complete this test " +sec1+ " Minutes " +sec2 +" Seconds\n You scored "+score+" out of "+total+"\n Your efficiency is : "+efficiency+"%\n Status : You "+outcome+"ed" );
+                  window.location = '/quiz/';
+                }
+
+                else{
+                  outcome='Fail'
+                  alert("time taken to complete this test " +sec1+ ":" +sec2 +"\n You scored "+score+" out of "+total+"\n Your efficiency is : "+efficiency+"%\n Status : You "+outcome+"ed" );
+                  window.location = '/quiz/';
+                }
+
+                }
+
+                else{
+                  alert('you did not check all the answers ');
+                  
+                   
+                }
+                } 
+
+        
+          </script>
+
+        <button type="button"  class="btn btn-block btn-success btn-md" onclick= mySubmit() > Submit </button>
+
+    </div>
+  </div>
+
+</form>
+
+
+{% endblock %}

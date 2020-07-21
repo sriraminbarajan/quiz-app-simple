@@ -1,0 +1,90 @@
+<html>
+{% extends "base.html" %}
+
+{% block title%}
+  Home
+{% endblock %}
+{% block content %}
+<head>
+  
+  <style>
+    .button {
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    
+    .button1 {
+      background-color: white; 
+      color: black; 
+      border: 2px solid #4CAF50;
+    }
+    
+    .button1:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .button2 {
+      background-color: white; 
+      color: black; 
+      border: 2px solid #008CBA;
+    }
+    
+    .button2:hover {
+      background-color: #008CBA;
+      color: white;
+    }
+    
+    </style>
+  
+
+</head>
+
+<body>
+
+  <h1 class="center">Welcome to the Quiz Section</h1>
+  <br>
+  <br>
+
+  <!--checks whether the user is authenticated or not. 
+      if the user is authenticated it displays the Quiz Categories 
+      or else it will ask them to login / register-->
+
+  {% if user.is_authenticated %}
+  <h2>Select the catagory to begin the quiz in that catagory</h2>
+  {% for choice in choices %}
+  <div class="row">
+    <div class="col-md-4">
+      <a href="/quiz/{{ choice.0 }}"><h3>{{ choice.1 }}</h3></a>
+     
+    </div>
+
+  </div>
+  {% endfor %}
+  
+  {% else %}
+ 
+  <h2>Please Login to take the Quiz </h2><br><h2> If you don't have Login credentials then Register to take up the Quiz. </h2>
+
+  <br>
+  <br>
+  <a href="register.html"><button class="button button2">Register</button>
+  <a href="login.html"><button class="button button2">Go To Login</button></a>
+
+  
+  {% endif %}
+{% endblock %}
+
+
+
+</body>>
+
+</html>>
