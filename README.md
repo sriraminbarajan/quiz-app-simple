@@ -6,6 +6,12 @@ Setting up:
 
     For Creating the Quiz categories and the questions to come under it you must be a super user.
     
+    Or login using school using the :
+                    username: ram
+                    password: s
+                    
+                   -- or --
+    
     steps in creating account for super user:
         1) ---- Python manage.py createsuperuser ----
         2) Enter your username mail id and password
